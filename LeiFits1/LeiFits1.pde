@@ -4,9 +4,33 @@ import java.awt.Component;
 int tempo = 0;
 Retangulo retangulo = new Retangulo(30, 70, new Vertice(0,0));
 
+int distanciaInicial;
+Robot robot;
+
+Utils util = new Utils();
+
+void atribuirNovasPosicoesMouse()
+{
+  int x = (int) (Math.random() * 800 + 1);
+  int y = (int) (Math.random() * 600 + 1);
+  
+  robot.mouseMove(x, y);
+  
+}
+
 boolean procurando = false;
 
 void setup(){
+  
+  try
+  {
+    robot = new Robot();
+  }
+  catch(Exception ex)
+  {
+    ex.printStackTrace();
+  }
+  
   size(800, 600);
   background(255);
   timer.start();
@@ -25,9 +49,6 @@ public void limpar()
 }
 
 
-
-
-
 javax.swing.Timer timer = new javax.swing.Timer(10 ,new java.awt.event.ActionListener(){
         
         public void actionPerformed(java.awt.event.ActionEvent e)
@@ -36,11 +57,13 @@ javax.swing.Timer timer = new javax.swing.Timer(10 ,new java.awt.event.ActionLis
            
            if(retangulo.pontoDentro(new Vertice(mouseX, mouseY)) && tempo != 0)
            {
-             println("millis antes - " + millis());
              println("tempo de chegada ao objeto(ms): " + tempo);
              atribuirNovasPosicoesRetangulo();
+             atribuirNovasPosicoesMouse();
+             distanciaInicial = (int) util.distancia(new Vertice(mouseX, mouseY), retangulo.getPivot());
+             println("Distância: " + distanciaInicial);
              tempo = 0;
-             println("millis depois - " + millis());
+          
            }
         }
         
