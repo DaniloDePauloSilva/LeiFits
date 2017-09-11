@@ -32,6 +32,7 @@ void setup(){
   }
   
   size(800, 600);
+  //fullScreen();
   background(255);
   timer.start();
   
@@ -49,12 +50,12 @@ public void limpar()
 }
 
 
-javax.swing.Timer timer = new javax.swing.Timer(10 ,new java.awt.event.ActionListener(){
+javax.swing.Timer timer = new javax.swing.Timer(250, new java.awt.event.ActionListener(){
         
         public void actionPerformed(java.awt.event.ActionEvent e)
         {
-           tempo += 10;
-           
+           tempo += 250;
+           //println("Milis antes: " + millis());
            if(retangulo.pontoDentro(new Vertice(mouseX, mouseY)) && tempo != 0)
            {
              println("tempo de chegada ao objeto(ms): " + tempo);
@@ -65,6 +66,8 @@ javax.swing.Timer timer = new javax.swing.Timer(10 ,new java.awt.event.ActionLis
              tempo = 0;
           
            }
+           //println("Millis depois: " + millis());
+           
         }
         
     }); 
