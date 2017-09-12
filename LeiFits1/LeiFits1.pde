@@ -4,6 +4,9 @@ import java.awt.Component;
 int tempo = 0;
 Retangulo retangulo = new Retangulo(30, 70, new Vertice(0,0));
 
+ArrayList<Registro> listaRegistros = new ArrayList<Registro>();
+int contagem = 0;
+
 int distanciaInicial;
 Robot robot;
 
@@ -30,6 +33,7 @@ void setup(){
   {
     ex.printStackTrace();
   }
+  
   
   size(800, 600);
   //fullScreen();
@@ -62,6 +66,21 @@ javax.swing.Timer timer = new javax.swing.Timer(250, new java.awt.event.ActionLi
              atribuirNovasPosicoesRetangulo();
              atribuirNovasPosicoesMouse();
              distanciaInicial = (int) util.distancia(new Vertice(mouseX, mouseY), retangulo.getPivot());
+             listaRegistros.add(new Registro(tempo, distanciaInicial));
+             println(contagem + 1);
+             if(++contagem == 30)
+             {
+               println("contatem em trinta - criando arquivo");
+               try
+               {
+                 new ManipuladorArquivo().gravarArquivoTexto(listaRegistros);
+               }
+               catch(Exception ex)
+               {
+                 println("ERRO AO CRIAR O ARQUIVO: \n\n" + ex);
+               }
+             }
+             
              println("Distância: " + distanciaInicial);
              tempo = 0;
           
